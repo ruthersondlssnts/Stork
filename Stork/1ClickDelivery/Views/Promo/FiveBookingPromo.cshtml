@@ -1,0 +1,52 @@
+﻿@model IEnumerable<_1ClickDelivery.ViewModels.FiveBookingPromoViewModel>
+<style>
+    body {
+        color: black !important;
+    }
+</style>
+
+<div class="container" style="margin-top:180px">
+    <div class="row">
+        <table class="table  table-bordered table-hover" id="datatable">
+            <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.SenderName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BookingCount)
+                </th>
+            </tr>
+                </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SenderName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BookingCount)
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/js/bootstrap-datatable.js"></script>
+
+    <script type="text/javascript">
+        $("footer").remove();
+        removeEffectOnNavbar();
+
+        $("#navbarCollapse li:nth-child(3)").addClass("active");
+        $('#datatable').DataTable();
+
+    </script>
+
+}

@@ -1,0 +1,82 @@
+﻿@model _1ClickDelivery.Models.ScheduledPickup
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ScheduledPickup</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NoItem)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NoItem)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SenderName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SenderName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PickupAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PickupAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SpecialInstruction)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SpecialInstruction)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateOfPickup)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateOfPickup)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateTimeCreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateTimeCreated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateTimeUpdated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateTimeUpdated)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PKScheduledPickup }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

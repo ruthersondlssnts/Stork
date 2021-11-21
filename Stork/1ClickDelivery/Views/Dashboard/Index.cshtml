@@ -1,0 +1,363 @@
+﻿
+@{
+    ViewBag.Title = "Dashboard";
+}
+<style>
+    h1, .h1, h2, .h2, h3, .h3 {
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    .panel-heading {
+        padding: 10px 15px;
+    }
+
+    .panel-primary {
+        border-color: white;
+    }
+
+        .panel-primary > .panel-heading {
+            color: #666;
+            background-color: white;
+            border-color: white;
+        }
+
+    .btn-primary {
+        background-color: #004AAD;
+        border-color: #004AAD;
+    }
+
+        .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+            color: #fff;
+            background-color: #23A868;
+            border-color: #23A868; /*set the color you want here*/
+        }
+
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        border-top: 4px solid #004AAD;
+    }
+
+        .card:hover {
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        }
+
+    th {
+        font-size: 12px;
+    }
+
+    td {
+        font-size: 12px;
+    }
+ 
+    #btn_cancel {
+        color: #333;
+        background-color: #fff;
+        border-color: #ccc;
+    }
+    #btn_cancel:hover, #btn_cancel:focus, #btn_cancel:active, #btn_cancel.active {
+        color: #333;
+        background-color: #ccc;
+        border-color: #ccc; /*set the color you want here*/
+    }
+
+    .card.menuclick {
+        margin: 0px 15px 0px;
+    }
+
+    .table-responsive {
+        padding-top:10px
+    }
+</style>
+<div style="padding-top:180px;padding-left:1px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4" id="AccountInfoPlaceHolder">
+                @Html.Partial("_AccountInfoPartial", ViewData["AccountInfo"])
+            </div>
+
+            <div id="gifloading1" style="display:none">
+                <img class="img-responsive " src="~/img/loading.gif" style="margin:0 auto;" />
+            </div>
+
+            <div class="col-md-8 " id="RightPlaceHolder8" style="padding:0px;">
+
+                @{
+                    var tempval = TempData["PartialToLoad"];
+                    if (tempval != null)
+                    {
+                        if (tempval.ToString() == "_PickupAddressIndexPartial")
+                        {
+
+                            @Html.Action("_IndexPartial", "PickupAddress")
+                        }
+                    }
+                    else
+                    {
+                        @Html.Partial("_MenuPartial")
+
+
+                    }
+                }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 " id="gifloading2" style="display:none;margin:100px 0 100px">
+                <img class="img-responsive " src="~/img/loading.gif" style="margin:0 auto;" />
+            </div>
+            <div class="col-xs-12 " id="Grid1PlaceHolder" style="margin:15px 0px 15px">
+                @{
+                    if (tempval == null)
+                    {
+                        @Html.Action("_GridPartial", "ScheduledPickup")
+                    }
+                }
+            </div>
+            <div class="col-xs-12" id="gifloading3" style="display:none;margin:100px 0 100px">
+                <img class="img-responsive " src="~/img/loading.gif" style="margin:0 auto;"
+                     />
+            </div>
+            <div class="col-xs-12" id="Grid2PlaceHolder" style="margin-bottom:50px">
+                @{
+                    if (tempval == null)
+                    {
+                        @Html.Action("_GridPartial", "Waybill")
+                    }
+                }
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+   
+ <script src="~/js/bootstrap-datatable.js"></script>
+<script type="text/javascript">
+    $("#dashboardLink").css("color", "#f7564f");
+    $("#dashactive").addClass("active");
+
+    //Load Dashboard and 2 grids
+    $('#datatable').DataTable({
+        "lengthMenu": [[5, 10, 20, -1], [5, 10, 20, "All"]]
+    });
+    $('#waydatatable').DataTable({
+        "lengthMenu": [[5, 10, 20, -1], [5, 10, 20, "All"]]
+    });
+    $("#DashboardHomeButton").click(function () {
+        $('#RightPlaceHolder8').empty();
+        $("#gifloading1").css("display", "block");
+        $("#gifloading2").css("display", "block");
+        $("#gifloading3").css("display", "block");
+        $('#RightPlaceHolder8').load('@Url.Action("_MenuPartial", "Dashboard")', function (responseTxt, statusTxt, xhr) {
+            if (statusTxt == "success")
+                $("#gifloading1").css("display", "none");
+        });
+        $('#Grid1PlaceHolder').load('@Url.Action("_GridPartial", "ScheduledPickup")', function (responseTxt, statusTxt, xhr) {
+            if (statusTxt == "success") {
+                $("#gifloading2").css("display", "none");
+
+                $('#datatable').DataTable({
+                    "lengthMenu": [[5, 10, 20, -1], [5, 10, 20, "All"]]
+                });
+
+            }
+        });
+        $('#Grid2PlaceHolder').load('@Url.Action("_GridPartial", "Waybill")', function (responseTxt, statusTxt, xhr) {
+            if (statusTxt == "success") {
+                $("#gifloading3").css("display", "none");
+                $('#waydatatable').DataTable({
+                    "lengthMenu": [[5, 10, 20, -1], [5, 10, 20, "All"]]
+                });
+
+            }
+        });
+
+    });
+
+    
+    //load Schedule Pickup for confirmation
+    $(document).on("click", "#ScheduleAPickupButton", function () {
+         $('#RightPlaceHolder8').empty();
+         $('#Grid1PlaceHolder').empty();
+         $('#Grid2PlaceHolder').empty();
+         $("#gifloading1").css("display", "block");
+         $('#RightPlaceHolder8').load('@Url.Action("_CreatePartial", "ScheduledPickup")', function (responseTxt, statusTxt, xhr) {
+            if (statusTxt == "success") {
+                $("#gifloading1").css("display", "none");
+                $.validator.unobtrusive.parse("#RightPlaceHolder8 form");
+                $('#submitButton').click(function () {
+                    $("#pickupAddress").text($("#AreaDropDown :selected").text());
+                    $("#noOfItem").text($("#editorForNoOfItem").val());
+                    $("#pickupDate").text($("#editorForPickupDate").val());
+                    $("#instruction").text($("#instructionTextArea").val());
+                    $("#myModal").modal("show");
+
+                });;
+                $("#confirmButton").click(function () {
+                    $("#schedulePickupCreateForm").submit();
+                    $("#myModal").modal("hide");
+                });
+
+            }
+         });
+    });
+
+  
+
+
+
+    //load Create Waybill for confirmation
+    $(document).on("click", "#CreateWayBillButton", function () {
+        $('#RightPlaceHolder8').empty();
+        $('#Grid1PlaceHolder').empty();
+        $('#Grid2PlaceHolder').empty();
+        $("#gifloading1").css("display", "block");
+        $('#RightPlaceHolder8').load('@Url.Action("_CreatePartial", "Waybill")', function (responseTxt, statusTxt, xhr) {
+            if (statusTxt == "success") {
+                $("#gifloading1").css("display", "none");
+                $.validator.unobtrusive.parse("#RightPlaceHolder8 form");
+                $('#submitButton').click(function () {
+                    $("#pickupAddress").text($("#AreaDropDown :selected").text());
+                    //$("#noOfItem").text($("#editorForNoOfItem").val());
+                    $("#pickupDate").text($("#editorForPickupDate").val());
+                    $("#instruction").text($("#instructionTextArea").val());
+                    $("#destinationAddress").text($("#editorForDestinationAddress").val());
+                    $("#deliveryArea").text($("#editorForDeliveryArea").val());
+                    $("#receiverName").text($("#editorForReceiverName").val());
+                    $("#receiverPhone").text($("#editorForReceiverPhone").val());
+                    $("#myModal").modal("show");
+                });
+                $("#confirmButton").click(function () {
+                    $("#waybillCreateForm").submit();
+                    $("#myModal").modal("hide");
+                });
+            }
+        });
+    });
+
+ 
+    //load "Manage Pick up Address" from "Schedule Pick up" and "Create Waybill"
+    $(document).on("click","#PickupAddressIndexLink",function () {
+        $('#RightPlaceHolder8').empty();
+        $("#gifloading1").css("display", "block");
+        $('#RightPlaceHolder8').load('@Url.Action("_IndexPartial", "PickupAddress")', function (responseTxt, statusTxt, xhr) {
+            if (statusTxt == "success") {
+                $("#gifloading1").css("display", "none");
+                $("#datatablepickup").DataTable();
+            }
+        });
+    });
+
+
+     //load "Manage Pick up Address" grid
+    $(document).on("click", "#PickupAddressIndexButton", function () {
+    $('#RightPlaceHolder8').empty();
+    $('#Grid1PlaceHolder').empty();
+    $('#Grid2PlaceHolder').empty();
+    $("#gifloading1").css("display", "block");
+       $('#RightPlaceHolder8').load('@Url.Action("_IndexPartial", "PickupAddress")', function (responseTxt, statusTxt, xhr) {
+           if (statusTxt == "success") {
+               $("#gifloading1").css("display", "none");
+               $("#datatablepickup").DataTable();
+           }
+          });
+    });
+
+    //edit address
+    function test(id) {
+        var link = '@Url.Action("_EditPartial", "PickupAddress", new { id = "-1" })';
+        link = link.replace("-1", id);
+        $('#RightPlaceHolder8').load(link, function (responseTxt, statusTxt, xhr) {
+            $("#gifloading1").css("display", "block");
+            if (statusTxt == "success") {
+                $("#gifloading1").css("display", "none");
+                $('#AreaDropDown').change(function () {
+                    var selectedCountry = $("#AreaDropDown").val();
+                    var regionsSelect = $('#VBM');
+                    regionsSelect.empty();
+                    if (selectedCountry != null && selectedCountry != '') {
+                         $.getJSON('@Url.Action("GetRegions","PickupAddress")', { iso3: selectedCountry }, function (regions) {
+                                    if (regions != null && !jQuery.isEmptyObject(regions)){
+                                          regionsSelect.append($('<option/>', {
+                                          value: null,
+                                          text: ""
+                             }));
+                             $.each(regions, function (index, region) {
+                                regionsSelect.append($('<option/>', {
+                                    value: region.Value,
+                                    text: region.Text
+                                }));
+                            });
+                        };
+                    });
+                    }
+                    $.validator.unobtrusive.parse("#RightPlaceHolder8 form");
+
+                });
+
+               
+
+            }
+        });
+    }
+    
+
+    $(document).on("click", "#btn_cancel", function () {
+         $('#RightPlaceHolder8').empty();
+                    $("#gifloading1").css("display", "block");
+                    $('#RightPlaceHolder8').load('@Url.Action("_IndexPartial", "PickupAddress")', function (responseTxt, statusTxt, xhr) {
+                        if (statusTxt == "success") {
+                            $("#gifloading1").css("display", "none");
+                            $("#datatablepickup").DataTable();
+
+                        }
+                    });
+    });
+
+    //load Add Pick Up Address
+    $(document).on("click", "#CreatePickupAddressButton", function () {
+        $('#RightPlaceHolder8').empty();
+        $('#Grid1PlaceHolder').empty();
+        $('#Grid2PlaceHolder').empty();
+        $("#gifloading1").css("display", "block");
+        $('#RightPlaceHolder8').load('@Url.Action("_CreatePartial", "PickupAddress")', function (responseTxt, statusTxt, xhr) {
+            if (statusTxt == "success") {
+                $("#gifloading1").css("display", "none");
+                $.validator.unobtrusive.parse("#RightPlaceHolder8 form");
+
+                $('#AreaDropDown').change(function () {
+                    var selectedCountry = $("#AreaDropDown").val();
+                    var regionsSelect = $('#VBM');
+                    regionsSelect.empty();
+                    if (selectedCountry != null && selectedCountry != '') {
+                        $.getJSON('@Url.Action("GetRegions","PickupAddress")', { iso3: selectedCountry }, function (regions) {
+                            if (regions != null && !jQuery.isEmptyObject(regions))
+                            {
+                                regionsSelect.append($('<option/>', {
+                                    value: null,
+                                    text: ""
+                                }));
+                                $.each(regions, function (index, region) {
+                                    regionsSelect.append($('<option/>', {
+                                        value: region.Value,
+                                        text: region.Text
+                                    }));
+                                });
+                            };
+                        });
+                    }
+                });
+
+            }
+        });
+    });
+
+    removeEffectOnNavbar();
+
+</script>
+}

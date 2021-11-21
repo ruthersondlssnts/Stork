@@ -1,0 +1,452 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="~/img/logos/stork-icon.png" />
+    <title>Stork</title>
+    <!-- css -->
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="~/css/bootstrap-datatables.css" rel="stylesheet" />
+    <link href="~/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    @*<link rel="stylesheet" type="text/css" href="~/plugins/cubeportfolio/css/cubeportfolio.min.css">*@
+    @*<link href="~/css/nivo-lightbox.css" rel="stylesheet" />
+        <link href="~/css/nivo-lightbox-theme/default/green.css" rel="stylesheet" type="text/css" />*@
+    <link href="~/css/owl.carousel.css" rel="stylesheet" media="screen" />
+    <link href="~/css/owl.theme.css" rel="stylesheet" media="screen" />
+    <link href="~/css/animate.css" rel="stylesheet" />
+    <link href="~/css/style.css" rel="stylesheet">
+    @*<link href="~/css/jquery-bootstrap-datepicker.css" rel="stylesheet" />*@
+    @*<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>*@
+
+
+    <!-- boxed bg -->
+    @*<link id="bodybg" href="~/bodybg/bg1.css" rel="stylesheet" type="text/css" />*@
+    <!-- template skin -->
+    <link id="t-colors" href="~/color/green.css" rel="stylesheet">
+
+    <style>
+
+        .identityname {
+            font-size: 15px;
+            letter-spacing: 1px;
+            color: #004AAD;
+            font-weight: 700;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            line-height: 20px;
+            background: transparent;
+            position: relative;
+            display: block;
+            padding: 10px 15px;
+        }
+    </style>
+</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-custom">
+
+
+    <div id="wrapper">
+
+        <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+            <div class="top-area">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6">
+                            <p class="bold text-left">Monday - Saturday, 9am to 6pm </p>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <p class="bold text-right">Call Us: (02) 705 1071</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container navigation">
+
+                <div class="navbar-header page-scroll">
+                    <button id="m1" type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse" style="margin-top: 15px; padding-top:5px; padding-bottom:5px; padding-right:20px;padding-left:0px">
+                        <span class="icon-bar" style="background-color:#666;"></span>
+                        <span class="icon-bar" style="background-color:#666;"></span>
+                        <span class="icon-bar" style="background-color:#666;"></span>
+                    </button>
+                    <button id="m2" type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse1" style="padding:5px">
+                        <img src="~/img/usericon.png" width="30" />
+                    </button>
+                    <a class="navbar-brand" href="/#intro" data-nav-section="intro" style="padding-right:0px">
+
+                        <img src="/img/Stork_Logo-NoBGLong.png" style="height: 35px;">
+                    </a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                    <ul class="nav navbar-nav lx">
+                        <li><a data-nav-section="intro" href="/#intro">Home</a></li>
+                        <li class="dropdown">
+                            <a href="" class="dropdown-toggle" data-nav-sections="price" data-toggle="dropdown">Rates <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a data-nav-section="metro" href="/#metro">Metro Manila</a></li>
+                                <li><a data-nav-section="province" href="/#province">Province</a></li>
+                                <li><a data-nav-section="cod" href="/#cod">COD</a></li>
+                            </ul>
+                        </li>
+
+
+                        <li><a data-nav-section="about" href="/#about">About Us</a></li>
+                        <li><a data-nav-section="faq" href="/#faq">FAQ</a></li>
+                        <li>
+                            @Html.ActionLink("Tracking", "Index", "Tracking")
+                        </li>
+                        @if (HttpContext.Current.User.Identity.IsAuthenticated)
+                        {
+                            var isAdmin = Roles.IsUserInRole("Admin");
+                            <li class="dropdown hidden-xs hidden-sm">
+                                <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                                    <img id="account" src="~/img/usericon.png" style="width:30px;height:auto" />
+                                    <img id="accounthov" src="~/img/usericonhov.png" style="width:30px;height:auto" />  Account  <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    @if (isAdmin)
+                                    {
+
+                                        <li>
+                                            @Html.ActionLink("Dashboard", "Index", "Dashboard", routeValues: null, htmlAttributes: new { id = "adminLink" })
+                                        </li>
+
+                                    }
+                                    else
+                                    {
+                                        <li>
+                                            @Html.ActionLink("Dashboard", "Index", "Dashboard", routeValues: null, htmlAttributes: new { id = "dashboardLink" })
+                                        </li>
+                                    }
+                                    <li>
+
+                                        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-form", style = "padding-top: 4px;" }))
+                                        {
+
+                                            @Html.AntiForgeryToken()
+                                            <a href="javascript:document.getElementById('logoutForm').submit()">  <span class="glyphicon glyphicon-log-out"></span> Log off</a>
+                                        }
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="hidden-xs hidden-sm">
+                                @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+                            </li>
+                            <li class="hidden-xs hidden-sm">
+                                @Html.ActionLink("Sign-up", "Register", "Account")
+                            </li>
+                        }
+                        @*<li class="identityname" style="padding-top:15px; padding-left:40px"><em> @User.Identity.Name</em></li>*@
+
+                    </ul>
+
+                </div>
+                <div class="collapse navbar-collapse navbar-right navbar-main-collapse1">
+                    <ul class="nav navbar-nav lx">
+
+                        @if (HttpContext.Current.User.Identity.IsAuthenticated)
+                        {
+                            var isAdmin = Roles.IsUserInRole("Admin");
+
+                            if (isAdmin)
+                            {
+
+                                <li class="hidden-md hidden-lg">
+                                    @Html.ActionLink("Dashboard", "Index", "Dashboard", routeValues: null, htmlAttributes: new { id = "adminLink" })
+                                </li>
+
+                            }
+                            else
+                            {
+                                <li class="hidden-md hidden-lg active" id="dashactive">
+                                    @Html.ActionLink("Dashboard", "Index", "Dashboard", routeValues: null, htmlAttributes: new { id = "dashboardLink" })
+                                </li>
+
+                            }
+                            <li class="hidden-md hidden-lg">
+
+                                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-form", style = "padding-top: 4px;margin-left:15px;margin-right:0px; " }))
+                                {
+
+                                    @Html.AntiForgeryToken()
+                                    <a href="javascript:document.getElementById('logoutForm').submit()">  <span class="glyphicon glyphicon-log-out"></span> Log off</a>
+                                }
+                            </li>
+
+                        }
+                        else
+                        {
+                            <li class="hidden-md hidden-lg">
+                                @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+                            </li>
+                            <li class="hidden-md hidden-lg">
+                                @Html.ActionLink("Sign-up", "Register", "Account")
+                            </li>
+                        }
+                        @*<li class="identityname" style="padding-top:15px; padding-left:40px"><em> @User.Identity.Name</em></li>*@
+
+                    </ul>
+
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container -->
+            @if (HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var isAdmin = Roles.IsUserInRole("Admin");
+                if (isAdmin)
+                {
+                    <style>
+                        #navbarCollapse .navbar-nav > li > a {
+                            padding-top: 5px;
+                            padding-bottom: 5px;
+                        }
+                    </style>
+                    <div id="navbarCollapse" class="collapse navbar-collapse" style="background: #eee;">
+                        <ul class="nav navbar-nav">
+                            <li>
+                                @Html.ActionLink("Dashboard", "Index", "Dashboard", routeValues: null, htmlAttributes: new { id = "adminLink" })
+                            </li>
+                            <li>
+                                @Html.ActionLink("Area", "Index", "Area")
+                            </li>
+                            <li>
+                                @Html.ActionLink("Promo", "FiveBookingPromo", "Promo")
+                            </li>
+                            <li>
+                                @Html.ActionLink("Waybills", "Index", "WaybillAdmin")
+                            </li>
+                            <li>
+                                @Html.ActionLink("Users", "Index", "Account")
+                            </li>
+                        </ul>
+
+                    </div>
+
+                }
+            }
+        </nav>
+
+        @RenderBody()
+        <footer>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-md-4">
+                        <div class="wow fadeInDown" data-wow-delay="0.1s">
+                            <div class="widget">
+                                <h5>Browse our website</h5>
+                                <ul>
+                                    <li><a data-nav-section="metro" href="/#intro">Home</a></li>
+                                    <li><a data-nav-section="price" href="/#metro">Rates</a></li>
+                                    <li><a data-nav-section="" href="">Tracking</a></li>
+                                    <li>
+                                        @Html.ActionLink("Terms And Conditions", "Terms", "Home")
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <style>
+                        #ca.fa-circle:before {
+                            color: #428bca;
+                            content: "\f111";
+                        }
+
+                        #ph.fa-circle:before {
+                            color: #73ca6b;
+                            content: "\f111";
+                        }
+
+                        #ma.fa-circle:before {
+                            color: #f7514a;
+                            content: "\f111";
+                        }
+                    </style>
+                    <div class="col-sm-6 col-md-4">
+                        <div class="wow fadeInDown" data-wow-delay="0.1s">
+                            <div class="widget">
+                                <h5>Stork Center</h5>
+                                @*<p>
+                                        Nam leo lorem, tincidunt id risus ut, ornare tincidunt naqunc sit amet.
+                                    </p>*@
+                                <ul>
+                                    <li>
+                                        <span class="fa-stack fa-lg">
+                                            <i id="ca" class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-calendar-o fa-stack-1x fa-inverse"></i>
+                                        </span> Monday - Saturday, 9am to 6pm
+                                    </li>
+                                    <li>
+                                        <span class="fa-stack fa-lg">
+                                            <i id="ph" class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-phone fa-stack-1x fa-inverse"></i>
+                                        </span> 0917 538 8126 or (02)705 1071
+                                    </li>
+                                    <li>
+                                        <span class="fa-stack fa-lg">
+                                            <i id="ma" class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                                        </span> info@STORK.ph
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <div class="wow fadeInDown" data-wow-delay="0.1s">
+                            <div class="widget">
+                                <h5>Our location</h5>
+                                <p>146 F. Manalo Street, Barangay 12, San Juan,<br />1500 Metro Manila</p>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="sub-footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                            <div class="wow fadeInLeft" data-wow-delay="0.1s">
+                                <div class="text-left">
+                                    <p>© 2018 - Stork.ph All Rights Reserved.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                            <div class="wow fadeInRight" data-wow-delay="0.1s">
+                                <div class="text-right">
+                                    <div class="credits">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <style>
+        #announcement {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 1030;
+            background-color: white;
+            display: block;
+        }
+        /*#announcement {
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%;
+            overflow: auto; 
+            background-color: rgb(0,0,0); 
+            background-color: rgba(0,0,0,0.4);
+        }*/
+
+        /* Modal Content/Box */
+        .announcement-content {
+            background-color: #fefefe;
+            /*margin: 15% auto;*/ /* 15% from the top and centered */
+            padding: 20px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 20px 6px 20px 10px rgba(0, 0, 0, 0.19);
+        }
+
+        /* The Close Button */
+        .closea {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+            .closea:hover,
+            .closea:focus {
+                color: #004AAD;
+                text-decoration: none;
+                cursor: pointer;
+            }
+    </style>
+   
+
+
+    <a href="#" class="scrollup"><i class="fa fa-angle-up active"></i></a>
+    <!-- Core JavaScript Files -->
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/jquery.easing.min.js"></script>
+    <script src="~/js/wow.min.js"></script>
+    @*<script src="~/js/jquery.scrollTo.js"></script>
+    <script src="~/js/jquery.appear.js"></script>
+    <script src="~/js/stellar.js"></script>*@
+    <script src="~/js/jquery.waypoints.min.js"></script>
+    @*<script src="~/plugins/cubeportfolio/js/jquery.cubeportfolio.min.js"></script>*@
+    <script src="~/js/owl.carousel.min.js"></script>
+ @*   <script src="~/js/nivo-lightbox.min.js"></script>*@
+    <script src="~/js/custom.js"></script>
+    <script>
+   
+            
+            $('.closea').click(function () {
+                $("#announcement").css("display", "none");
+            });
+      
+       
+
+
+        function removeEffectOnNavbar() {
+            $(window).unbind('scroll');
+            $(".navbar-fixed-top").addClass("top-nav-collapse");
+            $(".top-area").addClass("top-padding");
+            $(".navbar-brand").addClass("reduce");
+            $(".navbar-custom ul.nav ul.dropdown-menu").css("margin-top", "11px");
+        }
+        $("#m2").click(function () {
+            $(".navbar-main-collapse").removeClass("in");
+        }
+        );
+        $("#m1").click(function () {
+            $(".navbar-main-collapse1").removeClass("in");
+        }
+        );
+        $(".navbar-main-collapse ul li").mouseup(function () {
+            $(".navbar-main-collapse1").removeClass("in");
+            $(".navbar-main-collapse2").removeClass("in");
+        }
+        );
+
+        $(document).ready(function () {
+            var currentController = '@ViewContext.RouteData.Values["controller"].ToString()';
+            if (currentController === "Home" || currentController === "Tracking" ) {
+                $("#navbarCollapse").remove();
+            }
+        });
+    </script>
+    @RenderSection("scripts", required: false)
+
+
+
+</body>
+</html>

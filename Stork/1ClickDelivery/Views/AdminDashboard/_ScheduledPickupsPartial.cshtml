@@ -1,0 +1,82 @@
+﻿@model IEnumerable<_1ClickDelivery.Models.ScheduledPickup>
+
+<table id="datatable" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfPickup)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReferenceNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PickupArea)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PickupAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SenderName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NoItem)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SpecialInstruction)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.DateTimeCreated)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfPickup)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReferenceNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PickupArea)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PickupAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SenderName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoItem)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SpecialInstruction)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateTimeCreated)
+            </td>
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id=item.PKScheduledPickup }) |
+            @Html.ActionLink("Details", "Details", new { id=item.PKScheduledPickup })*@
+                @*<input type="button" id="updateButton" value="Update Status" onclick="updateStat(@item.PKScheduledPickup)" />*@
+                <input type="button" class="spUpdateButton" id="@item.PKScheduledPickup" value="Status" onclick="updateStatSP('@item.PKScheduledPickup','@item.Status');" />
+            </td>
+        </tr>
+        }
+    </tbody>
+
+</table>
+
+
+

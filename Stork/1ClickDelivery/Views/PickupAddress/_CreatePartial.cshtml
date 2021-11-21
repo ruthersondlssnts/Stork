@@ -1,0 +1,65 @@
+﻿@model _1ClickDelivery.ViewModels.PickupAddressViewModel
+
+@using (Html.BeginForm("Create", "PickupAddress", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.PKPickupAddress)
+
+    <div class="panel panel-primary card menuclick">
+        <div class="panel-heading text-center"><h3> Add Pickup Address</h3></div>
+        <div class="panel-body">
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Street, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.Street, new { htmlAttributes = new { @class = "form-control input-sm", placeholder = "Example: 566 Blumentritt st. or 123 Ayala Ave", maxlength = "70" } })
+                @Html.ValidationMessageFor(model => model.Street, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Unit, htmlAttributes: new { @class = "control-label" })
+
+                @Html.EditorFor(model => model.Unit, new { htmlAttributes = new { @class = "form-control input-sm", placeholder = "Example: Unit 123 or 3F ABC Building ", maxlength = "70" } })
+                @Html.ValidationMessageFor(model => model.Unit, "", new { @class = "text-danger" })
+
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.SelectedArea, htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownListFor(x => Model.SelectedArea, new SelectList(Model.Areas, "Value", "Text"), htmlAttributes: new { @class = "form-control input-md", id = "AreaDropDown" })
+                        @Html.ValidationMessageFor(x => x.SelectedArea, "", new { @class = "text-danger" })
+
+                    </div>
+                    <div class="form-group">
+                        <label>Village / Barangay / Municipality</label>
+                        @*@Html.LabelFor(model => model.SelectedVillageBarangaMunicipality, htmlAttributes: new { @class = "control-label" })*@
+                        @Html.DropDownListFor(x => Model.SelectedVillageBarangaMunicipality, new SelectList(Model.VillageBarangaMunicipalitys, "Value", "Text"), htmlAttributes: new { @class = "form-control input-md", id = "VBM" })
+                        @Html.ValidationMessageFor(x => x.SelectedVillageBarangaMunicipality, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>
+                <div class="col-lg-6">
+
+                    <div class="form-group">
+                        <label>Contact Person</label>
+                        @*@Html.LabelFor(model => model.ContactPerson, htmlAttributes: new { @class = "control-label " })*@
+                        @Html.EditorFor(model => model.ContactPerson, new { htmlAttributes = new { @class = "form-control input-sm", maxlength = "30" } })
+                        @Html.ValidationMessageFor(model => model.ContactPerson, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label>Contact Person Number</label>
+                        @*@Html.LabelFor(model => model.ContactPersonNo, htmlAttributes: new { @class = "control-label " })*@
+                        @Html.EditorFor(model => model.ContactPersonNo, new { htmlAttributes = new { @class = "form-control input-sm", placeholder = "Example: 09190000000", maxlength = "20", title = "Example: 09190000000" } })
+                        @Html.ValidationMessageFor(model => model.ContactPersonNo, "", new { @class = "text-danger" })
+                    </div>
+                    <button name="Submit" type="submit" id="btn_submit" class="btn btn-primary pull-right">Submit</button>
+                    <button type="button" id="btn_cancel" class="btn btn-default pull-right" style="margin-right: 10px">Cancel</button>
+                    <div class="clearfix"></div>
+                </div>
+                </div>
+            </div>
+
+        </div>
+       
+}
+

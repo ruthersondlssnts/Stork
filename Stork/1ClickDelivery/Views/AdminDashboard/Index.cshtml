@@ -1,0 +1,478 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<style>
+
+    .btn-default {
+        color: #333;
+        background-color: #fff;
+        border-color: #ccc;
+        -moz-border-radius: 0px;
+        -webkit-border-radius: 4px 4px 0px 0px;
+        border-radius: 4px 4px 0px 0px;
+    }
+
+        .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .btn-default:active, .btn-default.active {
+            color: #333;
+            background-color: #ccc;
+            border-color: #ccc; /*set the color you want here*/
+        }
+
+
+    th {
+        font-size: 14px;
+    }
+
+    td {
+        font-size: 14px;
+    }
+
+    .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active {
+        background-color: #eee;
+        border-color: #004AAD;
+    }
+
+    .btn-default:active, .btn-default.active {
+        background-color: #eee;
+        border-color: #004AAD;
+    }
+  
+   body
+    {
+        color: black !important;
+    }
+    
+</style>
+
+   
+
+<div style="padding-bottom:50px;margin-top:180px; margin-left:20px; margin-right:20px">
+
+    <div>
+        <h2>Dashboard</h2>
+    </div>
+
+            <div class="btn-group btn-group" role="group">
+                <button class="btn  btn-default tablinks active " id="pickupSummaryTab">(Scheduled) Summary</button>
+                <button class="btn  btn-default tablinks " id="scheduledPickupsTab">Scheduled Pickups</button>
+                <button class="btn  btn-default tablinks" id="waybillsTab">Waybills</button>
+            </div>
+
+            <br />
+
+            <div style=" border: 1px solid #cccccc; background-color:white;" class="col-xs-12">
+                <div class="form-inline" style="padding-bottom:20px;padding-top:10px">
+
+                    @*Pickup Summary Param*@
+                    <div id="psParam">
+                        @using (Html.BeginForm("PrintScheduledPickupsSummary", "AdminDashboard"))
+                        {
+                            <div class="form-group" style="margin-right:15px">
+                                <label>From: </label>
+                                <input name="fromDate" type='text' autocomplete="off" class="form-control" id="1psdatepicker" value="@ViewBag.FromDate" />
+                            </div>
+                            <div class="form-group" style="margin-right:15px">
+                                <label>To: </label>
+                                <input name="toDate" type='text' autocomplete="off" class="form-control" id="2psdatepicker" value="@ViewBag.ToDate" />
+                            </div>
+
+                            <div class="form-group">
+                                <input type="submit" id="printButton" value="Print" class="btn btn-default" />
+                            </div>
+                            <div class="form-group">
+                                <input type="button" id="psRefreshButton" value="Refresh" class="btn btn-default" />
+                            </div>
+                        }
+
+                    </div>
+
+                    @*Scheduled Pickups Param*@
+                    <div id="spParam">
+                        @using (Html.BeginForm("PrintScheduledPickups", "AdminDashboard"))
+                        {
+                            <div class="form-group" style="margin-right:15px">
+                                <label>From: </label>
+                                <input name="fromDate" type='text' autocomplete="off" class="form-control" id="1spdatepicker" value="@ViewBag.FromDate" />
+                            </div>
+                            <div class="form-group" style="margin-right:15px">
+                                <label>To: </label>
+                                <input name="toDate" type='text' autocomplete="off" class="form-control" id="2spdatepicker" value="@ViewBag.ToDate" />
+                            </div>
+                            <div class="form-group" style="margin-right:20px">
+                                <label>Status: </label>
+                                <select name="status" id="spstatus" class="form-control">
+                                    <option value="Scheduled">Scheduled</option>
+                                    <option value="Collection">Collection</option>
+                                    <option value="Collected">Collected</option>
+                                    <option value="Delivery">Delivery</option>
+                                    <option value="Delivered">Delivered</option>
+                                    <option value="Cancelled">Cancelled</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" id="printButton" value="Print" class="btn btn-default" />
+                            </div>
+                            <div class="form-group">
+                                <input type="button" id="spRefreshButton" value="Refresh" class="btn btn-default" />
+                            </div>
+                        }
+
+                    </div>
+
+                    @*Waybill Param*@
+                    <div id="wbParam">
+                        <div class="form-group" style="margin-right:15px">
+                            <label>From: </label>
+                            <input name="fromDate" type='text' autocomplete="off" class="form-control" id="1wbdatepicker" value="@ViewBag.FromDate" />
+                        </div>
+                        <div class="form-group" style="margin-right:15px">
+                            <label>To: </label>
+                            <input name="toDate" type='text' autocomplete="off" class="form-control" id="2wbdatepicker" value="@ViewBag.ToDate" />
+                        </div>
+                        <div class="form-group" style="margin-right:20px">
+                            <label>Status: </label>
+                            <select name="status" id="wbstatus" class="form-control">
+                                <option value="Scheduled">Scheduled</option>
+                                <option value="Collection">Collection</option>
+                                <option value="Collected">Collected</option>
+                                <option value="Delivery">Delivery</option>
+                                <option value="Delivered">Delivered</option>
+                                <option value="Cancelled">Cancelled</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" id="wbRefreshButton" value="Refresh" class="btn btn-default" />
+                        </div>
+                    </div>
+
+                    @*Courier View*@
+
+                    @*Booking per Client*@
+
+                    @*Area Maintenance*@
+
+                </div>
+                <br />
+                <img class="img-responsive " src="~/img/loading.gif" id="gifloading" style="margin:0 auto; display:none;" />
+
+                <div id="partialViewPlaceHolder">
+                    @Html.Action("_ScheduledPickupsSummaryPartial", "AdminDashboard")
+                </div>
+            </div>
+
+        </div>
+
+
+<div class="modal" id="mySPModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Status Update</h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="spPK" />
+                <input type="radio" name="status" value="Scheduled" checked /> Scheduled<br />
+                <input type="radio" name="status" value="Collection" /> Collection<br />
+                <input type="radio" name="status" value="Collected" /> Collected<br />
+                <input type="radio" name="status" value="Delivery" /> Delivery<br />
+                <input type="radio" name="status" value="Delivered" /> Delivered <br />
+                <input type="radio" name="status" value="Cancelled" /> Cancelled
+            </div>
+
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
+                <button id="updateStatSPModalButton" type="submit" class="btn btn-primary">Update</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="myWBModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Status Update</h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="wbPK" />
+                <input type="radio" name="status" value="Scheduled" checked /> Scheduled<br />
+                <input type="radio" name="status" value="Collection" /> Collection<br />
+                <input type="radio" name="status" value="Collected" /> Collected<br />
+                <input type="radio" name="status" value="Delivery" /> Delivery<br />
+                <input type="radio" name="status" value="Delivered" /> Delivered <br />
+                <input type="radio" name="status" value="Cancelled" /> Cancelled
+
+            </div>
+
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
+                <button id="updateStatWBModalButton" type="submit" class="btn btn-primary">Update</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/js/bootstrap-datatable.js"></script>
+    <script src="~/js/jquery-ui.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#navbarCollapse li:nth-child(1)").addClass("active");
+            $('#psParam').show();
+            $('#spParam').hide();
+            $('#wbParam').hide();
+            $("#1psdatepicker").datepicker({ changeYear: true, changeMonth: true });
+            $("#2psdatepicker").datepicker({ changeYear: true, changeMonth: true });
+            $("#1spdatepicker").datepicker({ changeYear: true, changeMonth: true });
+            $("#2spdatepicker").datepicker({ changeYear: true, changeMonth: true });
+            $("#1wbdatepicker").datepicker({ changeYear: true, changeMonth: true });
+            $("#2wbdatepicker").datepicker({ changeYear: true, changeMonth: true });
+            $("#datatable02").DataTable();
+
+        });
+
+        var modalDetails = function (id) {
+            var DetailPostBackURL = '/WaybillAdmin/DetailModal';
+            $.ajax({
+                type: "GET",
+                url: DetailPostBackURL,
+                contentType: "application/json; charset=utf-8",
+                data: { "Id": id },
+                datatype: "json",
+                success: function (data) {
+                    $('.modal-body').html(data);
+                    $('#Modal').modal('show');
+
+                },
+                error: function () {
+                    alert("Dynamic content load failed.");
+                }
+            });
+
+        };
+
+
+        $(function () {
+            $("#adminLink").css("color", "#f7564f");
+
+
+            $("#scheduledPickupsButton").trigger('click');
+            $(".btn-group[role='group'] button").on('click', function () {
+                $(this).siblings().removeClass('active')
+                $(this).addClass('active');
+            })
+
+        });
+
+        $(document).on("click", "#pickupSummaryTab", function () {
+            $("#gifloading").css("display", "block");
+            $('#partialViewPlaceHolder').empty();
+            $('#psParam').show();
+            $('#spParam').hide();
+            $('#wbParam').hide();
+            var fromDate = $('#1psdatepicker').val();
+            var toDate = $('#2psdatepicker').val();
+            $.ajax(
+                {
+                    type: "POST",
+                    url: "/AdminDashboard/_ScheduledPickupsSummaryPartial",
+                    data: { fromDate: fromDate, toDate: toDate },
+                    success: function (response) {
+                        $('#partialViewPlaceHolder').html(response);
+                        $("#datatable02").DataTable();
+                        $("#gifloading").css("display", "none");
+                    }
+                }
+            )
+        });
+
+        $(document).on("click", "#scheduledPickupsTab", function () {
+            $("#gifloading").css("display", "block");
+            $('#partialViewPlaceHolder').empty();
+            $('#psParam').hide();
+            $('#spParam').show();
+            $('#wbParam').hide();
+            var fromDate = $('#1spdatepicker').val();
+            var toDate = $('#2spdatepicker').val();
+            var status = $('#spstatus').val();
+            $.ajax(
+                {
+                    type: "POST",
+                    url: "/AdminDashboard/_ScheduledPickupsPartial",
+                    data: { fromDate: fromDate, toDate: toDate, status: status },
+                    success: function (response) {
+                        $('#partialViewPlaceHolder').html(response);
+                        $("#datatable").DataTable();
+                        $("#gifloading").css("display", "none");
+                    }
+                }
+            )
+        });
+
+        $(document).on("click", "#waybillsTab", function () {
+            $("#gifloading").css("display", "block");
+            $('#partialViewPlaceHolder').empty();
+            $('#psParam').hide();
+            $('#spParam').hide();
+            $('#wbParam').show();
+            var fromDate = $('#1wbdatepicker').val();
+            var toDate = $('#2wbdatepicker').val();
+            var status = $('#wbstatus').val();
+            $.ajax(
+                {
+                    type: "POST",
+                    url: "/AdminDashboard/_WaybillsPartial",
+                    data: { fromDate: fromDate, toDate: toDate, status: status },
+                    success: function (response) {
+                        $('#partialViewPlaceHolder').html(response);
+                        $("#wdatatable").DataTable();
+                        $("#gifloading").css("display", "none");
+
+                    }
+                }
+            )
+        });
+
+        //$(document).on("click", "#createWaybillTab", function () {
+        //    $("#gifloading").css("display", "block");
+
+        //    $('#partialViewPlaceHolder').empty();
+        //    $('#psParam').hide();
+        //    $('#spParam').hide();
+        //    $('#wbParam').hide();
+        //    $.ajax(
+        //        {
+        //            type: "POST",
+        //            url: "/AdminDashboard/_CreateWaybillPartial",
+        //            success: function (response) {
+        //                $('#partialViewPlaceHolder').html(response);
+        //                $("#gifloading").css("display", "none");
+        //            }
+        //        }
+        //    )
+        //});
+
+
+
+        $(document).on("click", "#psRefreshButton", function () {
+            var fromDate = $('#1psdatepicker').val();
+            var toDate = $('#2psdatepicker').val();
+            $.ajax(
+                {
+                    type: "POST",
+                    url: "/AdminDashboard/_ScheduledPickupsSummaryPartial",
+                    data: { fromDate: fromDate, toDate: toDate },
+                    success: function (response) {
+                        $('#partialViewPlaceHolder').html(response);
+                        $("#datatable02").DataTable();
+                    }
+                }
+            )
+        });
+
+        $(document).on("click", "#spRefreshButton", function () {
+            var fromDate = $('#1spdatepicker').val();
+            var toDate = $('#2spdatepicker').val();
+            var status = $('#spstatus').val();
+            $.ajax(
+                {
+                    type: "POST",
+                    url: "/AdminDashboard/_ScheduledPickupsRefreshPartial",
+                    data: { fromDate: fromDate, toDate: toDate, status: status },
+                    success: function (response) {
+                        $('#partialViewPlaceHolder').html(response);
+                        $("#datatable").DataTable();
+                    }
+                }
+            )
+        });
+
+
+        $(document).on("click", "#wbRefreshButton", function () {
+            var fromDate = $('#1wbdatepicker').val();
+            var toDate = $('#2wbdatepicker').val();
+            var status = $('#wbstatus').val();
+            $.ajax(
+                {
+                    type: "POST",
+                    url: "/AdminDashboard/_WaybillsRefreshPartial",
+                    data: { fromDate: fromDate, toDate: toDate, status: status },
+                    success: function (response) {
+                        $('#partialViewPlaceHolder').html(response);
+                        $("#wdatatable").DataTable();
+
+                    }
+                }
+            )
+        });
+
+        //Update Button on _ScheduledPickupsPartial Grid
+        function updateStatSP(id, stat) {
+            $("#spPK").val(id);
+            $("#mySPModal").modal("show");
+        }
+
+        //Update Button on _WaybillsPartial Grid
+        function updateStatWB(id, stat) {
+            $("#wbPK").val(id);
+            $("#myWBModal").modal("show");
+        }
+
+        //Update Button on SP Modal
+        $(document).on("click", "#updateStatSPModalButton", function () {
+            var fromDate = $('#1spdatepicker').val();
+            var toDate = $('#2spdatepicker').val();
+            var status = $('#spstatus').val();
+            var selStat = $('input[name=status]:checked').val();
+            var spPK = $("#spPK").val();
+            $.ajax(
+                {
+                    type: "POST",
+                    url: "/AdminDashboard/UpdateStatusSP",
+                    data: { fromDate: fromDate, toDate: toDate, status: status, selStat: selStat, pk: spPK },
+                    success: function (response) {
+                        $('#partialViewPlaceHolder').html(response);
+                        $("#datatable").DataTable();
+                        $("#mySPModal").modal("hide");
+                    }
+                }
+            )
+        });
+
+        //Update Button on WB Modal
+        $(document).on("click", "#updateStatWBModalButton", function () {
+            var fromDate = $('#1wbdatepicker').val();
+            var toDate = $('#2wbdatepicker').val();
+            var status = $('#wbstatus').val();
+            var selStat = $('input[name=status]:checked').val();
+            var wbPK = $("#wbPK").val();
+            $.ajax(
+                {
+                    type: "POST",
+                    url: "/AdminDashboard/UpdateStatusWB",
+                    data: { fromDate: fromDate, toDate: toDate, status: status, selStat: selStat, pk: wbPK },
+                    success: function (response) {
+                        $('#partialViewPlaceHolder').html(response);
+                        $("#datatable").DataTable();
+                        $("#myWBModal").modal("hide");
+                    }
+                }
+            )
+        });
+
+
+        $("footer").remove();
+
+        removeEffectOnNavbar();
+    </script>
+}
+

@@ -1,0 +1,173 @@
+﻿@model _1ClickDelivery.ViewModels.PickupAddressViewModel
+
+
+@using (Html.BeginForm("Create", "PickupAddress", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.PKPickupAddress)
+
+    <div class="panel panel-primary">
+        <div class="panel-heading"><span class="fa fa-pencil" style="margin-right:3px"></span> Add Pickup Address</div>
+        <div class="panel-body">
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Street, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.Street, new { htmlAttributes = new { @class = "form-control input-sm", placeholder = "Example: 566 Blumentritt st. or 123 Ayala Ave", maxlength = "70" } })
+                @Html.ValidationMessageFor(model => model.Street, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Unit, htmlAttributes: new { @class = "control-label" })
+
+                @Html.EditorFor(model => model.Unit, new { htmlAttributes = new { @class = "form-control input-sm", placeholder = "Example: Unit 123 or 3F ABC Building ", maxlength = "70" } })
+                @Html.ValidationMessageFor(model => model.Unit, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.SelectedArea, htmlAttributes: new { @class = "control-label" })
+                @Html.DropDownListFor(x => Model.SelectedArea, new SelectList(Model.Areas, "Value", "Text"), htmlAttributes: new { @class = "form-control input-sm", id = "AreaDropDown" })
+                @Html.ValidationMessageFor(x => x.SelectedArea, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.SelectedVillageBarangaMunicipality, htmlAttributes: new { @class = "control-label" })
+                @Html.DropDownListFor(x => Model.SelectedVillageBarangaMunicipality, new SelectList(Model.VillageBarangaMunicipalitys, "Value", "Text"), htmlAttributes: new { @class = "form-control input-sm", id = "VBM" })
+                @Html.ValidationMessageFor(x => x.SelectedVillageBarangaMunicipality, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ContactPerson, htmlAttributes: new { @class = "control-label " })
+                @Html.EditorFor(model => model.ContactPerson, new { htmlAttributes = new { @class = "form-control input-sm", maxlength = "30" } })
+                @Html.ValidationMessageFor(model => model.ContactPerson, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ContactPersonNo, htmlAttributes: new { @class = "control-label " })
+                @Html.EditorFor(model => model.ContactPersonNo, new { htmlAttributes = new { @class = "form-control input-sm", placeholder = "Example: 09190000000", maxlength = "11", title = "Example: 09190000000" } })
+                @Html.ValidationMessageFor(model => model.ContactPersonNo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="panel-footer">
+            <button name="Submit" type="submit" id="btn_submit" class="btn btn-success pull-right">Submit</button>
+            <button type="button" id="btn_cancel" class="btn btn-default pull-right" style="margin-right: 10px">Cancel</button>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+}
+
+
+
+
+
+
+
+@*@using (Html.BeginForm("Create","PickupAddress", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>PickupAddress</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.PKPickupAddress)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Street, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Street, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Street, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Unit, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Unit, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Unit, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.SelectedArea, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(x => Model.SelectedArea, new SelectList(Model.Areas, "Value", "Text"), htmlAttributes: new { @class = "form-control", id = "AreaDropDown" })
+                    @Html.ValidationMessageFor(x => x.SelectedArea, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SelectedVillageBarangaMunicipality, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(x => Model.SelectedVillageBarangaMunicipality, new SelectList(Model.VillageBarangaMunicipalitys, "Value", "Text"), htmlAttributes: new { @class = "form-control", id = "VBM" })
+                @Html.ValidationMessageFor(x => x.SelectedVillageBarangaMunicipality, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ContactPerson, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ContactPerson, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ContactPerson, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ContactPersonNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ContactPersonNo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ContactPersonNo, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+@*<div class="form-group">
+        @Html.LabelFor(model => model.DateTimeCreated, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.DateTimeCreated, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.DateTimeCreated, "", new { @class = "text-danger" })
+        </div>
+    </div>*@
+
+@*<div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }*@
+
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+            $('#AreaDropDown').change(function () {
+                var selectedCountry = $("#AreaDropDown").val();
+                var regionsSelect = $('#VBM');
+                regionsSelect.empty();
+                if (selectedCountry != null && selectedCountry != '') {
+                    $.getJSON('@Url.Action("GetRegions","PickupAddress")', { iso3: selectedCountry }, function (regions) {
+                        if (regions != null && !jQuery.isEmptyObject(regions))
+                        {
+                            regionsSelect.append($('<option/>', {
+                                value: null,
+                                text: ""
+                            }));
+                            $.each(regions, function (index, region) {
+                                regionsSelect.append($('<option/>', {
+                                    value: region.Value,
+                                    text: region.Text
+                                }));
+                            });
+                        };
+                    });
+                }
+            });
+
+
+    $('#RightPlaceHolder8').css({
+        "padding-left": "15px",
+        "padding-right": "15px"
+    });
+</script>

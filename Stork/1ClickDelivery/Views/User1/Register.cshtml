@@ -1,0 +1,191 @@
+﻿@model _1ClickDelivery.Models.RegisteredUser
+
+@{
+    ViewBag.Title = "Create";
+}
+<style>
+    .loginInfo.new .panel-heading, .loginInfo.new .panel {
+        background-color: #fff;
+        color: #689f38;
+        border: 1px solid #ccc;
+        border-top: 5px solid #73ca6b;
+        padding: 15px;
+    }
+    .loginInfo .panel-heading {
+        border-bottom: none !important; 
+        padding: 20px 15px 10px !important;
+    }
+        .loginInfo .panel-heading .panel-title {
+            font-size: 16px;
+            font-weight: 700 !important;
+            letter-spacing: 0;
+            font-family: 'Montserrat', 'Roboto', Arial, sans-serif;
+            color: #444 !important;
+        }
+    .loginInfo.new .panel-body, .loginInfo.new .modal-body .panel-body-warning, .modal-body .loginInfo.new .panel-body-warning {
+        border: 1px solid #ccc;
+        border-top: none;
+    }
+    .panel-body, .modal-body .panel-body-warning {
+        padding: 15px;
+    }
+    .loginInfo.old {
+        border: none !important;
+        background-color: #fff;
+    }
+    .loginInfo {
+        margin-top: 20px;
+    }
+        .loginInfo.old .panel-heading, .loginInfo.old .panel {
+            background-color: #fff;
+            color: #0277bd;
+            border: 1px solid #ccc;
+            border-top: 5px solid #f7625b;
+            padding: 15px;
+        }
+        .loginInfo.old .panel-body, .loginInfo.old .modal-body .panel-body-warning, .modal-body .loginInfo.old .panel-body-warning {
+            border: 1px solid #ccc;
+            border-top: none;
+        }
+        .loginInfo.old .checkbox label {
+            font-size: 12px;
+            padding-left: 0;
+        }
+        .loginInfo.old .checkbox label {
+            font-size: 12px;
+            padding-left: 0;
+        }
+        .loginInfo.old a {
+            font-size: 12px;
+        }
+    input[type="checkbox"] + label:before {
+        content: "\f096";
+        font-weight: lighter;
+        color: #ccc;
+        margin-right: 7px;
+    }
+    input[type="checkbox"]:checked + label:before {
+        content: "\f14a";
+        color: #f7625b;
+        margin-right: 7px;
+        font-weight: lighter;
+    }
+    input[type="checkbox"] {
+        display: none;
+    }
+    input[type="checkbox"] + label:before {
+        font-family: FontAwesome;
+        display: inline-block;
+        font-size: 22px;
+        line-height: 22px;
+        font-weight: lighter;
+        vertical-align: middle;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    .btn-primary {
+        background-color: #f7625b !important;
+        border-color: #f7625b !important;
+    }
+        .btn-primary:hover, .btn-primary:focus {
+            background-color: #e8453d !important;
+            border-color: #e8453d !important;
+        }
+   
+    </style>
+
+<div class="container" style="padding-top:150px">
+            <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                @using (Html.BeginForm())
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <div class="col-md-6">
+                                        <div class="panel panel-default loginInfo new">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title"><i class="fa fa-plus-circle"></i> &nbsp;New Customer</h4>
+                                            </div>
+
+                                            <div class="panel-body">
+                                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                                                <div class="form-group">
+                                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Email Address", title = "Please Enter a valid Email" } })
+                                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                                </div>
+                                              
+                                                <div class="form-group">
+                                                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", placeholder = "First Name" } })
+                                                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="form-group">
+                                                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", placeholder = "Last Name" } })
+                                                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="form-group">
+                                                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "Password" } })
+                                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="form-group">
+                                                    <input placeholder="Confirm Password" type="password" class="form-control">
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-lg-12 text-right">
+                                                        <input type="submit" name="commit" value="Sign Up" class="btn btn-success">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!--loginInfo-->
+                                    </div>
+                                }
+                                <form>
+                                    <div class="col-md-6">
+                                        <div class="panel panel-default loginInfo old">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title"><i class="fa fa-sign-in"></i> &nbsp;Existing Customer</h4>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="form-group">
+                                                    <input required="" type="email" class="form-control" placeholder="Email Address">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input required="" type="password" class="form-control" placeholder="Password">
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6 text-left">
+                                                        <div class="checkbox">
+                                                            <input type="checkbox" value="1" id="profile_user_remember_me">
+                                                            <label for="profile_user_remember_me">Keep me logged in</label>
+                                                        </div>
+                                                        <a style="color:#f7625b">Forgot your password?</a>
+                                                    </div>
+                                                    <div class="col-sm-6 text-right">
+                                                        <button class="btn btn-primary" type="submit">Log In</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!--loginInfo-->
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                        <div class="clearfix"></div><br>
+                    </div>
+                </div>
+            </section>
+            
+        </div>
+      
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+            <script>
+                $(window).unbind('scroll');
+            </script>
+        }

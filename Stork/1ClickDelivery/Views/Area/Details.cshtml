@@ -1,0 +1,40 @@
+﻿@model _1ClickDelivery.Models.Area
+
+
+<div class="container"  style="margin-top:200px;">
+    <div class="row">
+        <div>
+            <h4>Details</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.AreaName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.AreaName)
+                </dd>
+            </dl>
+        </div>
+        <p>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.PKArea }) |
+            @Html.ActionLink("Back to List", "Index", "Area")
+        </p>
+        <br />
+
+        @Html.Action("_IndexPartial", "VBM", new { id = Model.PKArea })
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/js/bootstrap-datatable.js"></script>
+
+    <script>
+        $("#navbarCollapse li:nth-child(2)").addClass("active");
+        $("footer").remove();
+        $('#datatable01').DataTable();
+        removeEffectOnNavbar();
+    </script>
+}

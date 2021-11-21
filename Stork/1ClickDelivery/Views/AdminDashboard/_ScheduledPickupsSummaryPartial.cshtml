@@ -1,0 +1,79 @@
+﻿@model IEnumerable<_1ClickDelivery.Models.ScheduledPickup>
+
+
+<table id="datatable02" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            @*<th>
+                Ref#/Waybill#
+            </th>*@
+            @*<th>
+                Manual Waybill
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfPickup)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PickupArea)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PickupAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SenderName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NoItem)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SpecialInstruction)
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.DateTimeCreated)
+            </th>
+
+        </tr>
+        </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.ReferenceNo)
+                </td>*@
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.ManualWayBillNo)
+                </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfPickup)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PickupArea)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PickupAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SenderName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NoItem)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SpecialInstruction)
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateTimeCreated)
+                </td>
+
+
+            </tr>
+        }
+    </tbody>
+</table>

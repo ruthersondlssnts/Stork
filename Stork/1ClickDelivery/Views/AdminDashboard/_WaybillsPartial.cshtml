@@ -1,0 +1,151 @@
+﻿@model IEnumerable<_1ClickDelivery.Models.Waybill>
+
+
+<div class="table-responsive">
+    <style>
+        #wdatatable thead th {
+            font-size: 11px;
+        }
+
+        #wdatatable tbody td {
+            font-size: 11px;
+        }
+    </style>
+    <table class="table table-bordered table-hover" id="wdatatable">
+
+        <thead>
+
+            <tr>
+                @*<th>
+            @Html.DisplayNameFor(model => model.SenderId)
+        </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.WayBillNo)
+                </th>
+                <th>
+                    Manual Waybill#
+                </th>
+                <th>
+                    Pickup Area
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PickupAddress)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SenderName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreatedBy)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SpecialInstruction)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DeliveryArea)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DestinationAddress)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ReceiverName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ReceiverPhoneNo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateOfPickup)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateTimeCreated)
+                </th>
+                <th>Print</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WayBillNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ManualWayBillNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PickupArea)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PickupAddress)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SenderName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedBy)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SpecialInstruction)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DeliveryArea)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DestinationAddress)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReceiverName)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReceiverPhoneNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateOfPickup)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateTimeCreated)
+
+                    </td>
+                    <td>
+                        <a href=" @Url.Action("PrintWaybill","Waybill", new { pkWaybill = item.PKWayBill })">
+                            <img src="~/img/print-icon.png" width="30" height="25" style="margin-left:10px" />
+                        </a>
+
+                    </td>
+                    <td>
+                        <input type="button" class="spUpdateButton" id="@item.PKWayBill" value="Status" onclick="updateStatWB('@item.PKWayBill','@item.Status');" />
+                    </td>
+                    <td>
+                        <a style="cursor:pointer" onclick="modalDetails('@item.PKWayBill')">Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<div class="modal" id="Modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button id="cl" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Details</h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button id="c2" type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

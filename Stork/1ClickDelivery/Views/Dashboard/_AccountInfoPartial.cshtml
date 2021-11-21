@@ -1,0 +1,28 @@
+﻿@model _1ClickDelivery.Models.ApplicationUser
+<style>
+    .seperator {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border-top: 1px solid #eee;
+    }
+    
+</style>
+    <div class="panel panel-primary card">
+        <div class="panel-heading">
+            <span class="fa fa-user" style="margin-right:3px;"></span>
+            <b style="font-size:18px">Account Information</b>
+            <img src="~/img/editacc.png" class="img-responsive" style="width:27px; height:auto; float:right; " />
+        </div>
+        <div class="panel-body">
+            <b>Name:</b> @Html.DisplayFor(model => model.FirstName)  @Html.DisplayFor(model => model.LastName) <div class="seperator"></div>
+            <b>Email:</b> @Html.DisplayFor(model => model.Email)<div class="seperator"></div>
+            <b>Contact Number:</b> @Html.DisplayFor(model => model.PhoneNumber)<div class="seperator"></div>
+
+            <button class="btn btn-primary form-control" id="DashboardHomeButton">Dashboard Home</button>
+            @* <input type="button" id="DashboardHomeButton" class="btn glyphicon-home" value="Back to Dashboard Home" />*@
+
+        </div>
+    </div>
+
+
+  

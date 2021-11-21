@@ -1,0 +1,75 @@
+﻿@model IEnumerable<_1ClickDelivery.Models.ScheduledPickup>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NoItem)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SenderName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PickupAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SpecialInstruction)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateOfPickup)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateTimeCreated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateTimeUpdated)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NoItem)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SenderName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PickupAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SpecialInstruction)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateOfPickup)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateTimeCreated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateTimeUpdated)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.PKScheduledPickup }) |
+            @Html.ActionLink("Details", "Details", new { id=item.PKScheduledPickup }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.PKScheduledPickup })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,95 @@
+﻿@model IEnumerable<_1ClickDelivery.Models.Waybill>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+    <h2>Dashboard</h2>
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PKSender)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WayBillNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SenderName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PickupAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SpecialInstruction)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DestinationAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReceiverName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateOfPickup)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateTimeCreated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateTimeUpdated)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PKSender)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WayBillNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SenderName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PickupAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SpecialInstruction)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DestinationAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReceiverName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateOfPickup)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateTimeCreated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateTimeUpdated)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.PKWayBill }) |
+            @Html.ActionLink("Details", "Details", new { id=item.PKWayBill }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.PKWayBill })
+        </td>
+    </tr>
+}
+
+</table>

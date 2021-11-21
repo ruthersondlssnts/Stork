@@ -1,0 +1,98 @@
+﻿@model _1ClickDelivery.ViewModels.WaybillCreateViewModel
+
+
+@using (Html.BeginForm("Create", "Waybill", FormMethod.Post, new { id = "waybillCreateForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="panel panel-primary card menuclick">
+        <div class="panel-heading text-center"><h3> Create E-waybill <small style="margin-left: 5px;"> (Shipment Details)</small></h3></div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Pick up Address</label>
+                        @Html.DropDownListFor(x => Model.SelectedPickupAddress, new SelectList(Model.PickupAddresses, "Value", "Text"), htmlAttributes: new { @class = "form-control input-md", id = "AreaDropDown" })
+                        @Html.ValidationMessageFor(x => x.SelectedPickupAddress, "", new { @class = "text-danger" })
+                        <div style=" font-family: 'Arial';font-size: 12px;margin-top: 10px;">
+                            <span class="fa fa-pencil" style="color:#337ab7;margin-right: 5px"> </span><span id="PickupAddressIndexLink" style="cursor:pointer; color:#337ab7">Manage pickup address</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DateOfPickup, htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownListFor(x => Model.SelectedPickupDate, new SelectList(Model.PickupDates, "Value", "Text"), htmlAttributes: new { @class = "form-control input-md", id = "editorForPickupDate" })
+                        @Html.ValidationMessageFor(x => x.SelectedPickupDate, "", new { @class = "text-danger" })
+                        @*<small style="color:#337ab7">Today is 22 Oct, 2018 - 05:45 pm</small>*@
+                    </div>
+
+                    <div class="form-group">
+                        <label>Special Instructions</label>
+                        <textarea class="form-control input-sm" name="SpecialInstruction" id="instructionTextArea" maxlength="300" rows="5"></textarea>
+                        @Html.ValidationMessageFor(model => model.SpecialInstruction, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Destination Area</label>
+                        @Html.DropDownListFor(model => model.SelectedDeliveryArea, ViewBag.Areas as IEnumerable<SelectListItem>, new { @class = "form-control input-md" })
+                        @Html.ValidationMessageFor(model => model.SelectedDeliveryArea, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            Destination Address
+                        </label>
+                        @Html.EditorFor(model => model.DestinationAddress, new { htmlAttributes = new { @class = "form-control input-sm", id = "editorForDestinationAddress" , maxlength = "300" } })
+                        @Html.ValidationMessageFor(model => model.DestinationAddress, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label>Receiver Name</label>
+                        @Html.EditorFor(model => model.ReceiverName, new { htmlAttributes = new { @class = "form-control input-sm", id = "editorForReceiverName", maxlength = "100" } })
+                        @Html.ValidationMessageFor(model => model.ReceiverName, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label>Receiver Phone Number</label>
+                        @Html.EditorFor(model => model.ReceiverPhoneNo, new { htmlAttributes = new { @class = "form-control input-sm", id = "editorForReceiverPhone", maxlength = "15" } })
+                        @Html.ValidationMessageFor(model => model.ReceiverPhoneNo, "", new { @class = "text-danger" })
+                    </div>
+
+                    <button name="Submit" type="button" id="submitButton" class="btn btn-primary pull-right">Submit</button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+}
+
+
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Detail Confirmation?</h4>
+
+                </div>
+                <div class="modal-body">
+                <p>    <b>Pickup Address: </b>  <span id="pickupAddress"></span><br />
+                    @*Number of Items: <span id="noOfItem"></span><br />*@
+                    <b>Pickup Date:</b> <span id="pickupDate"></span><br />
+                    <b>Instructions:</b> <span id="instruction"></span><br />
+                    <b>Destination Address: </b> <span id="destinationAddress"></span><br />
+                    <b>Delivery Area: </b> <span id="deliveryArea"></span><br />
+                    <b>Receiver Name: </b> <span id="receiverName"></span><br />
+                    <b>Receiver Phone Number:</b> <span id="receiverPhone"></span>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
+                    <button id="confirmButton" type="submit" class="btn btn-primary">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>

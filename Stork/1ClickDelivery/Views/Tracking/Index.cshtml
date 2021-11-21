@@ -1,0 +1,116 @@
+﻿
+<style>
+    .btn-primary {
+        background-color: #004AAD !important;
+        border-color: #004AAD !important;
+    }
+
+        .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active {
+            background-color: #19ab66 !important;
+            border-color: #004AAD !important;
+        }
+
+
+</style>
+<section class="home-section bg-gray paddingbot-60" style="margin-top:50px">
+    <div class="container marginbot-50">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2" style="margin-bottom:20px">
+                <div class="wow fadeInLeft" data-wow-delay="0.1s">
+                    <div class="section-heading text-center">
+                        <h2 class="h-bold">Track your parcel. Simple and easy!</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wow bounceInUp" data-wow-delay="0.1s" style="margin-top:20px">
+
+                <div class="col-sm-6 col-sm-offset-3 text-center">
+                    <form>
+                        <div class="form-group col-sm-9">
+                            <input id="wbText" type="text" class="form-control input-lg " placeholder="Waybill Number" tabindex="1">
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <button id="searchButton" value="submit" type="button" class="btn btn-primary btn-lg" tabindex="2">
+                                <span class="glyphicon glyphicon-search">  Search</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="row" style="margin-top:40px; padding-left:25px; padding-right:20px">
+            <div id="placeHolder" class="col-md-5 col-md-offset-3 text-center">
+                <div id="gifloading1" style="display:none">
+                    <img class="img-responsive " src="~/img/loading.gif" style="margin:0 auto;" />
+                </div>
+               
+            </div>
+        </div>
+    </div>
+   
+</section>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script>
+    $("ul li:nth-child(3)").addClass("active");
+    $("#dashactive").removeClass("active");
+    
+    $("#wbText").keypress(function (e) {
+       
+        if (e.keyCode === 13) {
+            e.preventDefault();
+            $("#gifloading1").css("display", "block");
+
+            var wbNumber = $('#wbText').val();
+            if (wbNumber == "") {
+                wbNumber = 0;
+            }
+            $.ajax(
+                {
+                    type: "POST",
+                    url: "/Tracking/SearchWaybill",
+                    data: { wayBillNo: wbNumber },
+                    success: function (response) {
+                        $('#placeHolder').html(response);
+                        $("#gifloading1").css("display", "none");
+
+                    }
+                }
+            )
+        }
+        if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+            return false;
+        }
+    });
+    $(document).on("click", "#searchButton", function () {
+        $("#gifloading1").css("display", "block");
+        
+        var wbNumber = $('#wbText').val();
+        if (wbNumber == "") {
+            wbNumber = 0;
+        }
+        $.ajax(
+            {
+                type: "POST",
+                url: "/Tracking/SearchWaybill",
+                data: { wayBillNo: wbNumber },
+                success: function (response) {
+                    $('#placeHolder').html(response);
+                    $("#gifloading1").css("display", "none");
+                    
+                }
+            }
+        )
+    });
+
+    removeEffectOnNavbar();
+</script>
+
+}

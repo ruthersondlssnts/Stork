@@ -1,0 +1,121 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    ViewBag.Title = "Error";
+}
+<style>
+    .display-1 {
+        font-family: 'Rubik', sans-serif;
+        font-size: 4.25rem;
+    }
+    .display-5 {
+        font-family: 'Rubik', sans-serif;
+        font-size: 1.5rem;
+    }
+    .mbr-section-btn a.btn:not(.btn-form) {
+        border-radius: 100px;
+    }
+    .mbr-fullscreen {
+        display: flex;
+        display: -webkit-flex;
+        display: -moz-flex;
+        display: -ms-flex;
+        display: -o-flex;
+        align-items: center;
+        -webkit-align-items: center;
+        min-height: 100vh;
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+    }
+        .mbr-fullscreen .mbr-overlay {
+            min-height: 100vh;
+        }
+
+    .mbr-overlay {
+        background-color: #000;
+        bottom: 0;
+        left: 0;
+        opacity: .5;
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 0;
+    }
+    section {
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    section, .container, .container-fluid {
+        position: relative;
+        word-wrap: break-word;
+    }
+    .mbr-section-btn a.btn:not(.btn-form) {
+        border-radius: 100px;
+    }
+
+    .btn-white, .btn-white:active {
+        background-color: #ffffff;
+        border-color: #ffffff;
+        color: #ffffff;
+    }
+
+    .btn-white {
+        color: #333333 !important;
+    }
+
+    .btn-md {
+        font-weight: 500;
+        letter-spacing: 1px;
+        margin: .4rem .8rem !important;
+        -webkit-transition: all 0.3s ease-in-out;
+        -moz-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out;
+        padding: 1rem 3rem;
+        border-radius: 3px;
+    }
+
+    .btn {
+        font-weight: 500;
+        border-width: 2px;
+        font-style: normal;
+        letter-spacing: 1px;
+        margin: .4rem .8rem;
+        white-space: normal;
+        -webkit-transition: all 0.3s ease-in-out;
+        -moz-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out;
+        padding: 1rem 3rem;
+        border-radius: 3px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        word-break: break-word;
+    }
+
+    .display-4 {
+        font-family: 'Rubik', sans-serif;
+        font-size: 1rem;
+    }
+</style>
+
+<section class="header11 errorpic mbr-fullscreen" id="header11-1" data-rv-view="109" style="padding-top:200px">
+
+    <!-- Block parameters controls (Blue "Gear" panel) -->
+    
+    <!-- End block parameters -->
+
+    <div class="mbr-overlay" style="opacity: 0.7; background-color: rgb(127, 89, 89);">
+    </div>
+    <div class="container align-left">
+        <div class="media-container-column mbr-white col-md-12" >
+            <h2 class="mbr-section-title py-3 mbr-fonts-style display-1" style="color:white">Oops! Something went wrong...</h2>
+            <p style="color:white" class="mbr-text py-3 mbr-fonts-style display-5">The page you're looking for is not available. Please check the URL.</p>
+            <div class="mbr-section-btn py-4"><a class="btn btn-md btn-white display-4" href="http://1clickdelivery.ph/">BACK TO SITE</a></div>
+        </div>
+    </div>
+
+    
+</section>
+

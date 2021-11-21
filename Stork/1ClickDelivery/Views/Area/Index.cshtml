@@ -1,0 +1,55 @@
+﻿@model IEnumerable<_1ClickDelivery.Models.Area>
+<style>
+    body {
+        color:black!important;
+    }
+</style>
+<div class="container" style="margin-top:180px;">
+    <div class="row">
+        <h4>Area Maintenance</h4>
+        <hr />
+        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary", style = "margin-bottom:10px" })
+
+        <table id="datatable" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AreaName)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AreaName)
+                        </td>
+                        <td style="width:200px">
+                            @Html.ActionLink("Edit", "Edit", new { id = item.PKArea }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.PKArea }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.PKArea })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/js/bootstrap-datatable.js"></script>
+
+    <script type="text/javascript">
+        $("#navbarCollapse li:nth-child(2)").addClass("active");
+        removeEffectOnNavbar();
+        $("footer").remove();
+        $('#datatable').DataTable();
+        
+    </script>
+
+}

@@ -1,0 +1,40 @@
+﻿
+@model IEnumerable<_1ClickDelivery.Models.VBM>
+
+
+<h3>
+    Barangays
+</h3>
+<p>
+    @Html.ActionLink("Create New Barangay", "Create", new { id = ViewBag.PKAreaID }, new { @class = "btn btn-primary", style = "margin-bottom:10px" })
+</p>
+<table class="table table-striped table-bordered table-hover" id="datatable01">
+    <thead>
+        <tr>
+            @*<th>
+                @Html.DisplayNameFor(model => model.PKArea)
+            </th>*@
+            <th>
+                Barangay Name
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.PKArea)
+                </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.VBMName)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.PKVBM }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.PKVBM })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
